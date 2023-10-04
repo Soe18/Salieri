@@ -1,0 +1,25 @@
+import simpleaudio as audio
+
+class AudioPlayer:
+    # start, loop, end, state, ost
+    def __init__(self, start, loop, end):
+        self.start = start
+        self.loop = loop
+        self.end = end
+        self.state = 'not_playing'
+    
+    def play_start(self):
+        if self.state == 'not_playing':
+            self.ost = self.start.play()
+            self.state = 'starting'
+
+    def play_loop(self):
+        if self.state == 'starting' and (not self.ost.is_playing()):
+            self.ost = self.loop.play()
+            self.state == 'playing'
+        elif self.state == 'playing' and (not self.ost.is_playing()):
+            self.ost = self.loop.play()
+    
+    def play_end(self):
+        if self.state == 'playing' and (not self.ost.is_playing()):
+            self.ost = self.end.play()

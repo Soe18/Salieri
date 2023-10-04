@@ -1,0 +1,47 @@
+Loop in cui ci sono tutti i brani e lo si seleziona con le frecce su e giu illuminando la voce di un brano.
+Sotto c'è un player che (credo) possa indicare un minutaggio, però sarebbe più figa una progress bar
+
+
+Nuova implementazione:
+Ci saranno due file python:
+salieri.py (SALIERI) e gui.py (GUI)
+Gui servira' per mostrare a video tutte le opzioni disponibili all'utente, mentre salieri gestira'
+tutti i comandi che verranno ricevuti da gui. All'interno di salieri verranno generati piu' thread
+per permettere una riproduzione audio completamente controllata.
+
+Cosa è audioplayer?
+audioplayer è essenzialmente un brano in riproduzione, che si cicla da solo e aspetta input per:
+* fermarsi brutalmente
+* mettersi in pausa
+* fermarsi correttamente / o fade out se la musica non ha la traccia end
+* fare effetto fade per cambiare brano nell'esecuzione
+
+
+    Per FERMARSI:
+self.running deve indicare LO STATO in cui la canzone e'
+intro --> loop --> end
+
+Ciò non basta per determinare però lo stato effettivo
+pausa?
+vuole finire?
+
+Per questo, status_fallback diventa --> advanced_status.
+advanced_status conterra' due valori booleani
+pause = True/False
+approach_to_end = True/False
+
+
+
+
+
+sheets.py
+Permette di leggere tutti i file audio disponibili per permettere alla UI di
+mostrarli su schermo.
+- Convenzioni:
+    * Devono stare nella directory 'soundtracks'
+    * Devono essere una cartella con qualsiasi nome
+    * Devono contenere come cartella almeno un file wav chiamato 'loop.wav',
+    puo' avere anche un 'start.wav' e/o un 'end.wav'
+
+sheets dovra' persino salvarsi i contenuti su un file dove conterra' le
+informazioni come nome del brano e cosi via
