@@ -45,3 +45,7 @@ mostrarli su schermo.
 
 sheets dovra' persino salvarsi i contenuti su un file dove conterra' le
 informazioni come nome del brano e cosi via
+
+
+KNOWN BUGS:
+Se premo E e poi F no worky

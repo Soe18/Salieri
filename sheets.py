@@ -27,4 +27,13 @@ class Papers():
             os.chdir('..')
         os.chdir('..')
 
+        # Add more then actual exists
+        for i in range(48):
+            self.operas.append({
+                'default_name':'trucebaldazzi',
+                'dir':'trucebaldazzi',
+                'has_start':False,
+                'has_end':False,
+            })
+
 papers = Papers()

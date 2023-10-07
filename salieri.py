@@ -120,14 +120,28 @@ class AudioPlayer(Thread):
         else:
             self.running = self.status_fallback[FOR_PAUSE]
 
-#print("hi")
+class Signal_Manager():
+    def __init__(self):
+        self.current_obj_playing = None
+    
+    def update(self, obj_music):
+        self.current_obj_playing = obj_music
+    
+    def recall(self, signum, frame):
+        if self.current_obj_playing: 
+            self.current_obj_playing.kill_with_fade_out()
+    
+    def get_status(self):
+        #import random
+        #return random.randint(0,9)
+        if self.current_obj_playing:
+            return self.current_obj_playing.running
+        else:
+            return 'None'
 
-#a = AudioPlayer("hi", "soundtracks/death/start.wav")
-#a.start()
-#signal.signal(signal.SIGTSTP, a.kill_with_fade_out)
+sig_manager = Signal_Manager()
 
 def audio_manager(queue):
-    sig_manager = Signal_Manager()
     signal.signal(signal.SIGTERM, sig_manager.recall)
     sound_to_play = None
     while True:
@@ -148,13 +162,3 @@ def audio_manager(queue):
         elif message == '5':
             if sound_to_play:
                 sound_to_play.pause()
-
-class Signal_Manager():
-    def __init__(self):
-        self.current_obj_playing = None
-    
-    def update(self, obj_music):
-        self.current_obj_playing = obj_music
-    
-    def recall(self, signum, frame):
-        self.current_obj_playing.kill_with_fade_out()
